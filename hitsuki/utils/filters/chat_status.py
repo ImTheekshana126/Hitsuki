@@ -16,21 +16,33 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import glob
-import os.path
+from aiogram import types
+from aiogram.dispatcher.filters import BoundFilter
+
+from hitsuki import dp
 
 
-def list_all_filters():
-    mod_paths = glob.glob(os.path.dirname(__file__) + "/*.py")
-    all_filters = [
-        os.path.basename(f)[:-3]
-        for f in mod_paths
-        if os.path.isfile(f) and f.endswith(".py") and not f.endswith("__init__.py")
-    ]
+class OnlyPM(BoundFilter):
+    key = 'only_pm'
 
-    return all_filters
+    def __init__(self, only_pm):
+        self.only_pm = only_pm
+
+    async def check(self, message: types.Message):
+        if message.from_user.id == message.chat.id:
+            return True
 
 
-ALL_FILTERS = sorted(list(list_all_filters()))
+class OnlyGroups(BoundFilter):
+    key = 'only_groups'
 
-__all__ = ALL_FILTERS + ["ALL_FILTERS"]
+    def __init__(self, only_groups):
+        self.only_groups = only_groups
+
+    async def check(self, message: types.Message):
+        if not message.from_user.id == message.chat.id:
+            return True
+
+
+dp.filters_factory.bind(OnlyPM)
+dp.filters_factory.bind(OnlyGroups)
