@@ -1,0 +1,37 @@
+# General
+telethon~=1.17.0
+aiogram>=2.15
+
+# DBs
+redis
+aioredis>=2.0.0 # Redis memory storage for aiogram
+pymongo
+motor
+dnspython # Needed to connect to cloud MongoDB instances
+
+# Optional deps to make bot faster
+aiohttp[speedups]
+cryptg
+cryptography
+uvloop
+
+# Other
+jikanpy
+envparse
+hypercorn
+aiocron
+apscheduler
+python-rapidjson
+PyYAML>5.0
+coloredlogs
+loguru
+sentry_sdk
+babel
+captcha
+async-timeout
+regex
+bs4
+lxml
+httpx[http2]
+python-anilist
+meval

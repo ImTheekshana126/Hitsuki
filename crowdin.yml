@@ -1,0 +1,3 @@
+files:
+  - source: hitsuki/localization/en.yaml
+    translation: /**/hitsuki/localization/%locale_with_underscore%.yaml
